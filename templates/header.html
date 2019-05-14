@@ -16,8 +16,8 @@
 {#                <li><a href="{% url 'course:about'%}">关于本站</a></li>#}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'account:user_login' %}">LOGIN</a></li>
-{#                {% if user.is_authenticated %}#}
+{#                <li><a href="{% url 'account:user_login' %}">LOGIN</a></li>#}
+                {% if user.is_authenticated %}
 {#                <li>#}
 {#                    <div class="dropdown" style="margin-top:8px">#}
 {#                        <button class='btn btn-default dropdown-toggle' type='button' id='dropdownMenu' data-toggle='dropdown'>{{ user.username }}#}
@@ -30,11 +30,12 @@
 {#                        </ul> #}
 {#                    </div>#}
 {#                </li>#}
-{#                <li><a href="{% url 'account:user_logout' %}">Logout</a></li>#}
-{#                {% else %}#}
-{#                <li><a href="{% url 'account:user_login' %}">LOGIN</a></li> #}
+                <li><a href="#">{{ user.username }}</a></li>
+                <li><a href="{% url 'account:user_logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'account:user_login' %}">LOGIN</a></li>
 {#                <li><a href="{% url 'account:user_register' %}">Sign up</a></li>#}
-{#                {% endif %}#}
+                {% endif %}
             </ul> 
         </div>
     </nav>
