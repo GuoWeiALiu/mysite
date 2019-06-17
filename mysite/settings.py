@@ -120,3 +120,4 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_URL = '/account/login/'
