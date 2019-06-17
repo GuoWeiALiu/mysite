@@ -38,4 +38,4 @@ class UserInfoForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ("email")
+        fields = ("email",)
