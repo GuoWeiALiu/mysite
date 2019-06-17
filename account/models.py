@@ -21,3 +21,4 @@ class UserInfo(models.Model):
     profession = models.CharField(max_length=100, blank=True)
     address = models.CharField(max_length=100, blank=True)
     aboutme = models.TextField(blank=True)
+    photo = models.ImageField(blank=True)

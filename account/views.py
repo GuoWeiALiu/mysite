@@ -6,7 +6,8 @@ from django.shortcuts import render
 # Create your views here.
 from account.forms import LoginForm, RegistrationForm, UserProfileForm, UserForm, UserInfoForm
 from account.models import UserProfile, UserInfo
-
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 def user_login(request):
     if request.method == 'POST':
@@ -46,7 +47,7 @@ def register(request):
         userprofile_form = UserProfileForm()
         return render(request, "account/register.html", {"form": user_form, "profile": userprofile_form})
 
-
+from .models import UserInfo
 @login_required()
 def myself(request):
     userprofile = UserProfile.objects.get(user=request.user) if \
@@ -102,5 +103,13 @@ def myself_edit(request):
                                                             "userinfo_form": userinfo_form})
 
 
+@login_required(login_url='/account/login/')
 def my_image(request):
-    return render(request,'account/imagecrop.html')
+    if request.method == 'POST':
+        img = request.POST['img']
+        userinfo = UserInfo.objects.get(user=request.user.id)
+        userinfo.photo = img
+        userinfo.save()
+        return HttpResponse("1")
+    else:
+        return render(request, 'account/imagecrop.html', )
