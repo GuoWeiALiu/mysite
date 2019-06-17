@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 from account.forms import LoginForm, RegistrationForm, UserProfileForm
-
+from account.models import UserProfile, UserInfo
 
 
 def user_login(request):
@@ -44,3 +45,16 @@ def register(request):
         user_form = RegistrationForm()
         userprofile_form = UserProfileForm()
         return render(request, "account/register.html", {"form": user_form, "profile": userprofile_form})
+
+
+@login_required()
+def myself(request):
+    userprofile = UserProfile.objects.get(user=request.user) if \
+        hasattr(request.user, 'userprofile') else UserProfile.objects.create(user=request.user)
+
+    userinfo = UserInfo.objects.get(user=request.user) if hasattr(request.user, "userinfo") \
+        else UserInfo.objects.create(user=request.user)
+
+    return render(request, "account/myself.html", {"user": request.user,
+                                                   "userinfo": userinfo,
+                                                   "userprofile": userprofile})
