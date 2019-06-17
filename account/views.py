@@ -103,7 +103,7 @@ def myself_edit(request):
                                                             "userinfo_form": userinfo_form})
 
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='account/login/')
 def my_image(request):
     if request.method == 'POST':
         img = request.POST['img']
